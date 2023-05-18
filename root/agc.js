@@ -7,7 +7,8 @@ const circulationRouter = require('./circulation')
 const documentRouter = require('./document')
 const migrationRouter = require('./migration')
 const advisory = require('../advisory/advisory')
-const dbQueries = require('./db')
+const dbQueries = require('./db_queries')
+const config = require('./config')
 
 agc.use('/file',fileRouter)
 agc.use('/request',requestRouter)
@@ -16,28 +17,29 @@ agc.use('/circulation',circulationRouter)
 agc.use('/document',documentRouter)
 agc.use('/migration',migrationRouter)
 
+const bodyParser = require('body-parser')
+
+agc.use(bodyParser.json())
+agc.use(bodyParser.urlencoded({ extended: false }))
+agc.use(function (req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin',config.origins);
+    res.setHeader('Access-Control-Allow-Methods',config.methods);
+    res.setHeader('Access-Control-Allow-Headers',config.headers);
+    res.setHeader('Access-Control-Allow-Credentials',config.credentials);
+    next();
+});
+
 agc.get('/',(req,res) => {
     console.log('Inside root agc script!!')
     res.status(200)
 })
-//finish the implementation and error handling
-agc.get('/master-data/:reqBody',(req,res) => {
-    console.log('Inside method!')
-    let response = dbQueries.getMasterData(req.params.reqBody);
-    //res.status(200).json(response)
-    console.log(response)
+
+agc.get('/master-data',(req,res) => {
+    dbQueries.getMasterData(req.query).then(function(rows){
+        res.status(200).json(rows)
+    }).catch((err)=>setImmediate(()=>{throw err}));
 })
 
-//finish the implementation and error handling
-/*agc.get('/master-data/:type/:parent-code',(req,res) => {
-    let response = {};
-    //res.status(200).json(response)
-})
-//finish the implementation and error handling
-agc.get('/master-data/:code',(req,res) => {
-    let response = {};
-    //res.status(200).json(response)
-})*/
 //finish the error handling
 agc.get('/root-itemid',(req,res) => {
     let response = {"FileRefNoFormat":{"ChildType":"V_PS_CM_DIVISION","MetadataCategory":null,"I_IW_ParentId":null,"WorkOnMatterIndicator":"N","I_RefNoDN":null,"IsMigrated":null,"I_ParentItemID":null,"I_IW_ID":"1","Status":"A","I_ChildDescription":null,"I_FileType":null,"FormatID":"100001","I_ChildType":"CUSTOM","BFRComplexity":null,"RetentionPeriodType":null,"Description":"Attorney-General","ReferenceNoDN":"AG","I_ChildCode":null,"FileType":null,"RetentionPeriodValue":null,"Code":"AG","FileRefNoFormat-id":{"Id":"294915","ItemId":"002248573547A1ECA330FA604440E819.294915"},"Title":{"Value":"AG","@xmlns":"http://schemas.opentext.com/entitymodeling/buildingblocks/title/1.0","@xmlns:wstxns3":"http://schemas.opentext.com/entitymodeling/buildingblocks/title/1.0"},"@xmlns:xsi":"http://www.w3.org/2001/XMLSchema-instance","@xmlns:wstxns1":"http://schemas/AGCSIWMasterData/FileRefNoFormat/operations","@xmlns":"http://schemas/AGCSIWMasterData/FileRefNoFormat","@xmlns:wstxns2":"http://schemas/AGCSIWMasterData/FileRefNoFormat"},"@xmlns:wstxns1":"http://schemas/AGCSIWMasterData/FileRefNoFormat/operations","@xmlns:xsi":"http://www.w3.org/2001/XMLSchema-instance"}
@@ -81,12 +83,20 @@ agc.get('/menu',(req,res) => {
     res.status(200).json(response)
 })
 
-//finish the error handling
 agc.get('/notifications',(req,res) => {
-    let response = {
-        "tuple":{"old":{"getNotificationMessageDetails":{"getNotificationMessageDetails":{"Notifications":{"Notification":[{"FileReferenceNo":"AG/IAD/AIR/1/2022/000000042","Status":"A","CreatedDate":"2022-11-14T12:32:25Z","UserGroup":"REGISTRY (IAD)","MessageReadStatus":"NotRead","Actor":"","MessageType":"Group","MessageCode":"REQUEST_ASSIGNED_TO_RO","Message":"Request ADV000000129 is assigned to Registry Officer.","ModifiedDate":"2022-11-14T12:32:25Z","Responder":"priya","RequestNo":"ADV000000129","NotificationItemId":"002248573547A1ECA6176D344191E81A.1753110","Source_ItemId":"002248573547A1EC9F382DC3A9CD6817.3194888","LayoutID":"002248573547A1ECA970AD0E1EFC681B","RequestState":"Return to Registry","TaskEntity_InstanceID":""},{"FileReferenceNo":"AG/IAD/MLA-T/HK/2022/000000019","Status":"A","CreatedDate":"2022-11-10T03:23:26Z","UserGroup":"REGISTRY (IAD)","MessageReadStatus":"NotRead","Actor":"","MessageType":"Group","MessageCode":"REQUEST_ASSIGNED_TO_RO","Message":"Request MLA000000013 is assigned to Registry Officer.","ModifiedDate":"2022-11-10T03:23:26Z","Responder":"priya","RequestNo":"MLA000000013","NotificationItemId":"002248573547A1ECA6176D344191E81A.1753098","Source_ItemId":"002248573547A1EC9F382DC3A9CD6817.3194882","LayoutID":"002248573547A1ECA970AD0E1F05A81B","RequestState":"Assign within Division","TaskEntity_InstanceID":""},{"FileReferenceNo":"AG/IAD/AIR/FIRS/2022/000000007","Status":"A","CreatedDate":"2022-09-16T07:21:46Z","UserGroup":"","MessageReadStatus":"NotRead","Actor":"","MessageType":"User","MessageCode":"CIRCULATION_ASSIGN_TO_OFFICER","Message":"Circulation CIR000000052 is assigned to Officer.","ModifiedDate":"","Responder":"priya","RequestNo":"","NotificationItemId":"002248573547A1ECA6176D344191E81A.1720324","Source_ItemId":"002248573547A1ECA0C96326EA372817.1245186","LayoutID":"002248573547A1ECAA4C762DEDD4681B","RequestState":"Inprogress","TaskEntity_InstanceID":""},{"FileReferenceNo":"AG/IAD/MLA-T/HK/2022/000000001","Status":"A","CreatedDate":"2022-08-23T06:20:17Z","UserGroup":"REGISTRY (IAD)","MessageReadStatus":"NotRead","Actor":"","MessageType":"Group","MessageCode":"REQUEST_ASSIGNED_TO_RO","Message":"Request MLA000000001 is assigned to Registry Officer.","ModifiedDate":"2022-08-23T06:20:17Z","Responder":"priya","RequestNo":"MLA000000001","NotificationItemId":"002248573547A1ECA6176D344191E81A.1703978","Source_ItemId":"002248573547A1EC9F382DC3A9CD6817.2703363","LayoutID":"002248573547A1ECA970AD0E1F05A81B","RequestState":"Return to Registry","TaskEntity_InstanceID":""},{"FileReferenceNo":"AG/IAD/AIR/1/2022/000000003","Status":"A","CreatedDate":"2022-08-23T06:18:23Z","UserGroup":"REGISTRY (IAD)","MessageReadStatus":"NotRead","Actor":"","MessageType":"Group","MessageCode":"REQUEST_ASSIGNED_TO_RO","Message":"Request ADV000000004 is assigned to Registry Officer.","ModifiedDate":"2022-08-23T06:18:23Z","Responder":"priya","RequestNo":"ADV000000004","NotificationItemId":"002248573547A1ECA6176D344191E81A.1703970","Source_ItemId":"002248573547A1EC9F382DC3A9CD6817.2719746","LayoutID":"002248573547A1ECA970AD0E1EFC681B","RequestState":"Return to Registry","TaskEntity_InstanceID":""}]}}}}}
-      }
-    res.status(200).json(response)
+    dbQueries.getUserNotifications(req.query).then(function(rows){
+        res.status(200).json(rows)
+    }).catch((err)=>setImmediate(()=>{throw err}));
+})
+
+agc.post('/update-notifications',(req,res) => {
+    dbQueries.updateUserNotifications(req.query,req.body).then(function(response_status){
+        if(response_status == 'update_success'){
+            dbQueries.getUserNotificationByID(req.query).then(function(rows){
+                res.status(200).json(rows)
+            }).catch((err)=>setImmediate(()=>{throw err}));
+        }
+    }).catch((err)=>setImmediate(()=>{throw err}));
 })
 
 //finish the error handling
