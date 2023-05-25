@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 const port = 3010
 const errHandle = require('./root/error')
-const connection = require('./root/db_connect')
+const sequelize = require('./root/db_connect')
 
 const morgan = require('morgan')
 morgan.token('m-type', function(req,res) {return req.method})
@@ -11,7 +11,7 @@ morgan.token('m-url', function(req,res) {return req.protocol + '://' + req.get('
 morgan.token('m-status', function(req,res) {return res.statusCode})
 app.use(morgan('--Logger--\nType\: :m-type \nRequest\: :m-request \nURL\: :m-url \nStatus\: :m-status'))
 
-const root = require('./root/agc');
+const root = require('./controllers/common/agc');
 app.use('/agc',root)
 
 app.get('/',(req,res) => {
@@ -19,18 +19,20 @@ app.get('/',(req,res) => {
     res.status(200)
 })
 
-connection.connect(function(err) {
-    if (err) throw err;
-    console.log("DB Connection Successful!!")
+sequelize.authenticate().then(() => {
+    console.log('Connection has been established successfully.');
     app.listen(port,() => {
         console.log(`Listening to port ${port}`)
     })
-});
+ }).catch((error) => {
+    console.error('Unable to connect to the database: ', error);
+ });
 
-process.on('exit',function(){
+ process.on('exit',function(){
     console.log('DB Connection Ended!!')
-    connection.end();
+    sequelize.close();
 })
+
 app.use((err,req,res) => {
     if(err){
         let apiError = new errHandle('API Error',err.status,err.stack)
