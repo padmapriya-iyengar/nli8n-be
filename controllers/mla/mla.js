@@ -8,7 +8,7 @@ mla.use('/file',fileRouter)
 mla.use('/request',requestRouter)
 
 mla.get('/',(req,res) => {
-    console.log('Inside mla script!!')
+    logger.info('Inside mla script!!')
     res.status(200)
 })
 

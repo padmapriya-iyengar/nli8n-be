@@ -2,7 +2,7 @@ const express = require('express')
 const circulation = express.Router({mergeParams: true})
 
 circulation.get('/',(req,res) => {
-    console.log('Inside agc circulation script!!')
+    logger.info('Inside agc circulation script!!')
     res.status(200)
 })
 

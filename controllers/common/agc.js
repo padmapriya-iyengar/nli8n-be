@@ -14,6 +14,7 @@ const notfServ = require('../../services/agc_notification')
 const userServ = require('../../services/agc_user')
 const userDivServ = require('../../services/agc_user_division')
 const userPrfServ = require('../../services/agc_user_profile')
+const seqServ = require('../../services/agc_sequence')
 
 agc.use('/file',fileRouter)
 agc.use('/request',requestRouter)
@@ -22,20 +23,8 @@ agc.use('/circulation',circulationRouter)
 agc.use('/document',documentRouter)
 agc.use('/migration',migrationRouter)
 
-const bodyParser = require('body-parser')
-
-agc.use(bodyParser.json())
-agc.use(bodyParser.urlencoded({ extended: false }))
-agc.use(function (req, res, next) {
-    res.setHeader('Access-Control-Allow-Origin',config.origins);
-    res.setHeader('Access-Control-Allow-Methods',config.methods);
-    res.setHeader('Access-Control-Allow-Headers',config.headers);
-    res.setHeader('Access-Control-Allow-Credentials',config.credentials);
-    next();
-});
-
 agc.get('/',(req,res) => {
-    console.log('Inside root agc script!!')
+    logger.info('Inside root agc script!!')
     res.status(200)
 })
 
@@ -83,10 +72,26 @@ agc.get('/user-details',(req,res) => {
     }).catch((err)=>setImmediate(()=>{throw err}));
 })
 
-//finish the implementation and error handling
-agc.post('/update-user-profile',(req,res) => {
-    let updatedData = req.body;
-    res.status(200).json('Participant created!!')
+agc.post('/user-profile',(req,res) => {
+    userPrfServ.updateUserProfile(req.query,req.body).then(function(rows){
+        userPrfServ.getUserProfile(req.query).then(function(rows){
+            res.status(200).json(rows)
+        }).catch((err)=>setImmediate(()=>{throw err}));
+    }).catch((err)=>setImmediate(()=>{throw err}));
+})
+
+agc.post('/sequence',(req,res) => {
+    seqServ.generateSequence(req.query).then(function(rows){
+        seqServ.getSequence(req.query).then(function(rows){
+            res.status(200).json(rows)
+        }).catch((err)=>setImmediate(()=>{throw err}));
+    }).catch((err)=>setImmediate(()=>{throw err}));
+})
+
+agc.get('/sequence',(req,res) => {
+    seqServ.getSequence(req.query).then(function(rows){
+        res.status(200).json(rows)
+    }).catch((err)=>setImmediate(()=>{throw err}));
 })
 
 //finish the error handling
@@ -130,11 +135,7 @@ agc.post('/login',(req,res) => {
     let newData = req.body;
     res.status(200).json('Login successful!!')
 })
-//finish the error handling
-agc.get('/officers',(req,res) => {
-    let response = [{ label: 'Priya', value: 'priya' },{ label: 'Demo User 1', value: 'DemoUser1' },{ label: 'Demo User 2', value: 'DemoUser2' }]
-    res.status(200).json(response)
-})
+
 //finish the error handling
 agc.get('/bosses/:user-name',(req,res) => {
     let response = {

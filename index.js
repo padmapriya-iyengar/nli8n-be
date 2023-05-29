@@ -1,43 +1,55 @@
 const express = require('express')
 const app = express()
-const port = 3010
 const errHandle = require('./root/error')
 const sequelize = require('./root/db_connect')
+const logger = require('./root/logger')
+const root = require('./controllers/common/agc');
+const config = require('./root/config')
+const port = config.express_port
 
 const morgan = require('morgan')
 morgan.token('m-type', function(req,res) {return req.method})
-morgan.token('m-request', function(req,res) {return req.body})
+morgan.token('m-request', function(req,res) {return req.method=='POST'?JSON.stringify(req.body):JSON.stringify(req.query)})
 morgan.token('m-url', function(req,res) {return req.protocol + '://' + req.get('host') + req.originalUrl})
 morgan.token('m-status', function(req,res) {return res.statusCode})
-app.use(morgan('--Logger--\nType\: :m-type \nRequest\: :m-request \nURL\: :m-url \nStatus\: :m-status'))
+app.use(morgan('Type\: :m-type -- Request\: :m-request -- URL\: :m-url -- Status\: :m-status -- Response Time\: :response-time ms', {stream: {write: message => logger.info(message)}}))
 
-const root = require('./controllers/common/agc');
+const bodyParser = require('body-parser')
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(function (req, res, next) {
+    res.setHeader('Access-Control-Allow-Origin',config.origins);
+    res.setHeader('Access-Control-Allow-Methods',config.methods);
+    res.setHeader('Access-Control-Allow-Headers',config.headers);
+    res.setHeader('Access-Control-Allow-Credentials',config.credentials);
+    next();
+});
+
 app.use('/agc',root)
 
 app.get('/',(req,res) => {
-    console.log('AGC Node Explorations!!')
+    logger.info('AGC Node Explorations!!')
     res.status(200)
 })
 
 sequelize.authenticate().then(() => {
-    console.log('Connection has been established successfully.');
+    logger.info('Connection has been established successfully.')
     app.listen(port,() => {
-        console.log(`Listening to port ${port}`)
+        logger.info(`Listening to port ${port}`)
     })
  }).catch((error) => {
-    console.error('Unable to connect to the database: ', error);
+    logger.error('Unable to connect to the database: ', error);
  });
 
  process.on('exit',function(){
-    console.log('DB Connection Ended!!')
+    logger.info('DB Connection Ended!!')
     sequelize.close();
 })
 
 app.use((err,req,res) => {
     if(err){
         let apiError = new errHandle('API Error',err.status,err.stack)
-        console.log('Inside error handler!!')
-        //throw apiError.getErrorObj()
+        logger.info('Error details - '+err.stack)
         throw err.stack
     }
 })

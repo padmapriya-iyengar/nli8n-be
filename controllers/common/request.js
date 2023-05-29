@@ -2,7 +2,7 @@ const express = require('express')
 const request = express.Router({mergeParams: true})
 
 request.get('/',(req,res) => {
-    console.log('Inside agc request script!!')
+    logger.info('Inside agc request script!!')
     res.status(200)
 })
 //finish the implementation and error handling

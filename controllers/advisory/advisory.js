@@ -8,7 +8,7 @@ advisory.use('/file',fileRouter)
 advisory.use('/request',requestRouter)
 
 advisory.get('/',(req,res) => {
-    console.log('Inside advisory script!!')
+    logger.info('Inside advisory script!!')
     res.status(200)
 })
 

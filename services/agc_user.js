@@ -5,7 +5,7 @@ const getAllUsers = async() => {
 }
 
 const getUserInfo = async(reqBody) => {
-  return await db.user.findAll({where: {username: reqBody.username}, include:[{model: db.userProfile, required: true}, {model: db.userDivision, required: true}]})
+  return await db.user.findAll({where: {username: reqBody.username}, include:[{model: db.userProfile, required: true}, {model: db.userDivision, required: false}]})
 }
 module.exports = {
     getAllUsers,

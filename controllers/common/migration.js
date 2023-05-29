@@ -2,7 +2,7 @@ const express = require('express')
 const migration = express.Router({mergeParams: true})
 
 migration.get('/',(req,res) => {
-    console.log('Inside agc migration script!!')
+    logger.info('Inside agc migration script!!')
     res.status(200)
 })
 //finish the error handling
