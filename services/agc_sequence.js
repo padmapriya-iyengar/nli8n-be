@@ -1,5 +1,4 @@
 const db = require('./common');
-const logger = require('../root/logger')
 
 const generateSequence = async(reqBody) => {
     let currentSeq = await db.sequence.findAll({where: {type: reqBody.type}})

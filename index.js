@@ -5,7 +5,7 @@ const sequelize = require('./root/db_connect')
 const logger = require('./root/logger')
 const root = require('./controllers/common/agc');
 const config = require('./root/config')
-const port = config.express_port
+const port = process.env.PORT || config.express_port
 
 const morgan = require('morgan')
 morgan.token('m-type', function(req,res) {return req.method})

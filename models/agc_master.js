@@ -34,6 +34,9 @@ module.exports = function(sequelize) {
         attribute_1: {
           type: DataTypes.STRING,
         },
+        attribute_2: {
+            type: DataTypes.JSON,
+        },
         created_on: {
             type: DataTypes.DATE,
             defaultValue: sequelize.literal('CURRENT_TIMESTAMP')

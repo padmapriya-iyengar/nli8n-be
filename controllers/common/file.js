@@ -1,20 +1,23 @@
 const express = require('express')
 const file = express.Router({mergeParams: true})
 
+const fileServ = require('../../services/agc_file')
+
 file.get('/',(req,res) => {
     logger.info('Inside agc file script!!')
     res.status(200)
 })
 
-//finish the implementation and error handling
-file.get('/read-file/:file-itemid',(req,res) => {
-    let response = {}
-    res.status(200).json(response)
+file.get('/read-file',(req,res) => {
+    fileServ.readFileByReference(req.query).then(function(rows){
+        res.status(200).json(rows)
+    }).catch((err) => setImmediate(()=>{throw err;}))
 })
-//finish the implementation and error handling
+
 file.post('/create-file',(req,res) => {
-    let newData = req.body;
-    res.status(200).json('File created!!')
+    fileServ.createFile(req.body).then(function(rows){
+        res.status(200).json('File created successfully!!')
+    }).catch((err) => setImmediate(()=>{throw err;}))
 })
 //finish the error handling
 file.get('/requests/:file-no',(req,res) => {

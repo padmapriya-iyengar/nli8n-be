@@ -115,11 +115,19 @@ sequence.sync({alter:true}).then(() => {
   logger.info('AGC Sequence table created successfully!!')
 }).catch((err)=>setImmediate(()=>{logger.error('Failed to create AGC Sequence data table!!'); throw err}));
 
+//creating agc file table
+const dbFile = require('../models/agc_file');
+const file = dbFile(connection)
+file.sync({alter: true}).then(() => {
+  logger.info('AGC File table created successfully!!')
+}).catch((err) => setImmediate(() => {logger.error('Failed to create AGC File table!!'); throw err}))
+
 module.exports = {
     master,
     notification,
     user,
     userProfile,
     userDivision,
-    sequence
+    sequence,
+    file
 }
