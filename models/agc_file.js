@@ -46,7 +46,7 @@ module.exports = function(sequelize){
         },
         SecurityClassificationDesc: {
             type: DataTypes.STRING,
-            allowNull: false   
+            //allowNull: false   
         },
         Sensitivity: {
             type: DataTypes.STRING,
@@ -62,7 +62,7 @@ module.exports = function(sequelize){
         },
         LocalForeignDesc: {
             type: DataTypes.STRING,
-            allowNull: false   
+            //allowNull: false   
         },
         AgencyType: {
             type: DataTypes.STRING
@@ -108,7 +108,7 @@ module.exports = function(sequelize){
         },
         FileStatusDesc: {
             type: DataTypes.STRING,
-            allowNull: false   
+            //allowNull: false   
         },
         MLACaseType: {
             type: DataTypes.STRING

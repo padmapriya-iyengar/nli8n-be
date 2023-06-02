@@ -16,7 +16,9 @@ file.get('/read-file',(req,res) => {
 
 file.post('/create-file',(req,res) => {
     fileServ.createFile(req.body).then(function(rows){
-        res.status(200).json('File created successfully!!')
+        fileServ.readFileByReference({fileNo:req.body.data.ReferenceNo}).then(function(createRows){
+            res.status(200).json(createRows)
+        })
     }).catch((err) => setImmediate(()=>{throw err;}))
 })
 //finish the error handling

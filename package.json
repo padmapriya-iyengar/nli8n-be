@@ -15,5 +15,9 @@
     "sequelize": "^6.31.1",
     "winston": "^3.9.0",
     "winston-daily-rotate-file": "^4.7.1"
+  },
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-nodemon": "^2.5.0"
   }
 }
