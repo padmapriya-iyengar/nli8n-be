@@ -2,7 +2,7 @@ const {DataTypes} = require('sequelize')
 
 module.exports = function(sequelize){
     const file = sequelize.define("agc_file",{
-        id:{
+        File_Id:{
             type: DataTypes.INTEGER,
             allowNull: false,
             primaryKey: true,
@@ -30,7 +30,8 @@ module.exports = function(sequelize){
         },
         ReferenceNo: {
             type: DataTypes.STRING,
-            allowNull: false   
+            allowNull: false,
+            unique: 'UNIQUE'
         },
         FileTitle: {
             type: DataTypes.STRING,
@@ -45,8 +46,7 @@ module.exports = function(sequelize){
             allowNull: false   
         },
         SecurityClassificationDesc: {
-            type: DataTypes.STRING,
-            //allowNull: false   
+            type: DataTypes.STRING 
         },
         Sensitivity: {
             type: DataTypes.STRING,
@@ -61,8 +61,7 @@ module.exports = function(sequelize){
             allowNull: false   
         },
         LocalForeignDesc: {
-            type: DataTypes.STRING,
-            //allowNull: false   
+            type: DataTypes.STRING
         },
         AgencyType: {
             type: DataTypes.STRING
@@ -107,8 +106,7 @@ module.exports = function(sequelize){
             type: DataTypes.STRING
         },
         FileStatusDesc: {
-            type: DataTypes.STRING,
-            //allowNull: false   
+            type: DataTypes.STRING
         },
         MLACaseType: {
             type: DataTypes.STRING
@@ -144,28 +142,36 @@ module.exports = function(sequelize){
             type: DataTypes.STRING
         },
         MLANovelLegalSensitiveIssue: {
-            type: DataTypes.BOOLEAN
+            type: DataTypes.BOOLEAN,
+            defaultValue: false
         },
         MLAPoliticalExposedPerson: {
-            type: DataTypes.BOOLEAN
+            type: DataTypes.BOOLEAN,
+            defaultValue: false
         },
         MLADualCriminality: {
-            type: DataTypes.BOOLEAN
+            type: DataTypes.BOOLEAN,
+            defaultValue: false
         },
         MLASovereignty: {
-            type: DataTypes.BOOLEAN
+            type: DataTypes.BOOLEAN,
+            defaultValue: false
         },
         MLAOffencePunishableByCaning: {
-            type: DataTypes.BOOLEAN
+            type: DataTypes.BOOLEAN,
+            defaultValue: false
         },
         MLASeniorGovtOfficial: {
-            type: DataTypes.BOOLEAN
+            type: DataTypes.BOOLEAN,
+            defaultValue: false
         },
         MLADeathPenalty: {
-            type: DataTypes.BOOLEAN
+            type: DataTypes.BOOLEAN,
+            defaultValue: false
         },
         MLAContentious: {
-            type: DataTypes.BOOLEAN
+            type: DataTypes.BOOLEAN,
+            defaultValue: false
         },
         MLAReceivedDate: {
             type: DataTypes.DATE,

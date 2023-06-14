@@ -8,7 +8,7 @@ const dbMaster = require('../models/agc_master');
 const master = dbMaster(connection)
 master.sync({alter:true}).then(() => {
   logger.info('AGC Master table created successfully!!')
-  fileProcessing.readFile(config.data_file_path +'master.json').then(function(data){
+  fileProcessing.readFile(config.data_file_path +'master.json').then((data)=>{
     logger.info('AGC Master data file read successfully!!')
     if(data){
       master.bulkCreate(JSON.parse(data),{validate: true}).then(() => {
@@ -23,7 +23,7 @@ const dbNotification = require('../models/agc_notification');
 const notification = dbNotification(connection)
 notification.sync({alter:true}).then(() => {
   logger.info('AGC Notification table created successfully!!')
-  fileProcessing.readFile(config.data_file_path +'notification.json').then(function(data){
+  fileProcessing.readFile(config.data_file_path +'notification.json').then((data)=>{
     logger.info('AGC Notification data file read successfully!!')
     if(data){
       notification.bulkCreate(JSON.parse(data),{validate: true}).then(() => {
@@ -38,7 +38,7 @@ const dbUser = require('../models/agc_user');
 const user = dbUser(connection)
 user.sync({alter:true}).then(() => {
   logger.info('AGC User table created successfully!!')
-  fileProcessing.readFile(config.data_file_path +'user.json').then(function(data){
+  fileProcessing.readFile(config.data_file_path +'user.json').then((data)=>{
     logger.info('AGC User data file read successfully!!')
     if(data){
       user.bulkCreate(JSON.parse(data),{validate: true}).then(() => {
@@ -69,7 +69,7 @@ user.hasOne(userProfile, {
 });
 userProfile.sync({alter:true}).then(() => {
   logger.info('AGC User Profile table created successfully!!')
-  fileProcessing.readFile(config.data_file_path +'user_profile.json').then(function(data){
+  fileProcessing.readFile(config.data_file_path +'user_profile.json').then((data)=>{
     logger.info('AGC User Profile data file read successfully!!')
     if(data){
       userProfile.bulkCreate(JSON.parse(data),{validate: true}).then(() => {
@@ -98,7 +98,7 @@ user.hasMany(userDivision,{
 })
 userDivision.sync({alter:true}).then(() => {
   logger.info('AGC User Division table created successfully!!')
-  fileProcessing.readFile(config.data_file_path +'user_division.json').then(function(data){
+  fileProcessing.readFile(config.data_file_path +'user_division.json').then((data)=>{
     logger.info('AGC User Division data file read successfully!!')
     if(data){
       userDivision.bulkCreate(JSON.parse(data),{validate: true}).then(() => {
@@ -122,12 +122,56 @@ file.sync({alter: true}).then(() => {
   logger.info('AGC File table created successfully!!')
 }).catch((err) => setImmediate(() => {logger.error('Failed to create AGC File table!!'); throw err}))
 
+//creating agc request table
+const dbRequest = require('../models/agc_request');
+const request = dbRequest(connection)
+request.sync({alter: true}).then(() => {
+  logger.info('AGC Request table created successfully!!')
+}).catch((err) => setImmediate(() => {logger.error('Failed to create AGC Request table!!'); throw err}))
+
+//creating agc file request map table
+const dbFileReq = require('../models/agc_file_request_map');
+const fileReqMap = dbFileReq(connection)
+fileReqMap.belongsTo(file, {
+  foreignKey: {
+    allowNull: false,
+    name: 'FileReferenceNo_fk'
+  },
+  targetKey: 'ReferenceNo'
+})
+file.hasMany(fileReqMap,{
+  foreignKey: {
+    allowNull: false,
+    name: 'FileReferenceNo_fk'
+  },
+  sourceKey: 'ReferenceNo'
+})
+fileReqMap.belongsTo(request, {
+  foreignKey: {
+    allowNull: false,
+    name: 'RequestNo_fk'
+  },
+  targetKey: 'RequestNo'
+})
+request.hasMany(fileReqMap,{
+  foreignKey: {
+    allowNull: false,
+    name: 'RequestNo_fk'
+  },
+  sourceKey: 'RequestNo'
+})
+fileReqMap.sync({alter: true}).then(() => {
+  logger.info('AGC File Request Map table created successfully!!')
+}).catch((err) => setImmediate(() => {logger.error('Failed to create AGC File Request Map table!!'); throw err}))
+
 module.exports = {
-    master,
-    notification,
-    user,
-    userProfile,
-    userDivision,
-    sequence,
-    file
+  master,
+  notification,
+  user,
+  userProfile,
+  userDivision,
+  sequence,
+  file,
+  request,
+  fileReqMap
 }

@@ -10,6 +10,8 @@ gulp.task('serve', function(){
             NODE_ENV: 'dev',
             port: process.env.PORT || config.port
         },
-        ignore: ['./node_modules/**']
+        ignore: ['./node_modules/*']
     })
 })
+
+gulp.watch('src/*.js',gulp.series(['serve']))

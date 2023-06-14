@@ -15,6 +15,7 @@ const userServ = require('../../services/agc_user')
 const userDivServ = require('../../services/agc_user_division')
 const userPrfServ = require('../../services/agc_user_profile')
 const seqServ = require('../../services/agc_sequence')
+const rx = require('rxjs')
 
 agc.use('/file',fileRouter)
 agc.use('/request',requestRouter)
@@ -29,67 +30,67 @@ agc.get('/',(req,res) => {
 })
 
 agc.get('/master-data',(req,res) => {
-    masterServ.getMasterData(req.query).then(function(rows){
+    masterServ.getMasterData(req.query).then((rows)=>{
         res.status(200).json(rows)
     }).catch((err)=>setImmediate(()=>{throw err}));
 })
 
 agc.get('/notifications',(req,res) => {
-    notfServ.getUserNotifications(req.query).then(function(rows){
+    notfServ.getUserNotifications(req.query).then((rows)=>{
         res.status(200).json(rows)
     }).catch((err)=>setImmediate(()=>{throw err}));
 })
 
 agc.post('/notifications',(req,res) => {
-    notfServ.updateUserNotifications(req.query,req.body).then(function(rows){
-        notfServ.getUserNotificationByID(req.query).then(function(rows){
+    notfServ.updateUserNotifications(req.query,req.body).then((rows)=>{
+        notfServ.getUserNotificationByID(req.query).then((rows)=>{
             res.status(200).json(rows)
         }).catch((err)=>setImmediate(()=>{throw err}));
     }).catch((err)=>setImmediate(()=>{throw err}));
 })
 
 agc.get('/user-divisions',(req,res) => {
-    userDivServ.getUserDivisions(req.query).then(function(rows){
+    userDivServ.getUserDivisions(req.query).then((rows)=>{
         res.status(200).json(rows)
     }).catch((err)=>setImmediate(()=>{throw err}));
 })
 
 agc.get('/users',(req,res) => {
-    userServ.getAllUsers().then(function(rows){
+    userServ.getAllUsers().then((rows)=>{
         res.status(200).json(rows)
     }).catch((err)=>setImmediate(()=>{throw err}));
 })
 
 agc.get('/user-profile',(req,res) => {
-    userPrfServ.getUserProfile(req.query).then(function(rows){
+    userPrfServ.getUserProfile(req.query).then((rows)=>{
         res.status(200).json(rows)
     }).catch((err)=>setImmediate(()=>{throw err}));
 })
 
 agc.get('/user-details',(req,res) => {
-    userServ.getUserInfo(req.query).then(function(rows){
+    userServ.getUserInfo(req.query).then((rows)=>{
         res.status(200).json(rows)
     }).catch((err)=>setImmediate(()=>{throw err}));
 })
 
 agc.post('/user-profile',(req,res) => {
-    userPrfServ.updateUserProfile(req.query,req.body).then(function(rows){
-        userPrfServ.getUserProfile(req.query).then(function(rows){
+    userPrfServ.updateUserProfile(req.query,req.body).then((rows)=>{
+        userPrfServ.getUserProfile(req.query).then((rows)=>{
             res.status(200).json(rows)
         }).catch((err)=>setImmediate(()=>{throw err}));
     }).catch((err)=>setImmediate(()=>{throw err}));
 })
 
 agc.post('/sequence',(req,res) => {
-    seqServ.generateSequence(req.query).then(function(rows){
-        seqServ.getSequence(req.query).then(function(rows){
+    seqServ.generateSequence(req.query).then((rows)=>{
+        seqServ.getSequence(req.query).then((rows)=>{
             res.status(200).json(rows)
         }).catch((err)=>setImmediate(()=>{throw err}));
     }).catch((err)=>setImmediate(()=>{throw err}));
 })
 
 agc.get('/sequence',(req,res) => {
-    seqServ.getSequence(req.query).then(function(rows){
+    seqServ.getSequence(req.query).then((rows)=>{
         res.status(200).json(rows)
     }).catch((err)=>setImmediate(()=>{throw err}));
 })

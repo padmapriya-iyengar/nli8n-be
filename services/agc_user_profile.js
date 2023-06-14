@@ -6,7 +6,7 @@ const getUserProfile = async(reqBody) => {
 }
 
 const updateUserProfile = async(reqParams,reqBody) => {
-    return await db.userProfile.update(reqBody,{where: {username_fk: reqParams.username}})
+    return await db.userProfile.update(reqBody.data,{where: {username_fk: reqParams.username}})
 }
 module.exports = {
     getUserProfile,
