@@ -12,7 +12,8 @@ const configuration = {
     log_config:{
         folder: './/logs//',
         file: 'agc-log-%DATE%.log'
-    }
+    },
+    wsDelay: 5000
 }
 
 module.exports = configuration

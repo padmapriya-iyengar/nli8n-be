@@ -6,6 +6,7 @@ const logger = require('./root/logger')
 const root = require('./controllers/common/agc');
 const config = require('./root/config')
 const port = process.env.PORT || config.express_port
+const websocket = require('./websockets/ws');
 
 const morgan = require('morgan')
 morgan.token('m-type', function(req,res) {return req.method})
@@ -34,9 +35,10 @@ app.get('/',(req,res) => {
 
 sequelize.authenticate().then(() => {
     logger.info('Connection has been established successfully.')
-    app.listen(port,() => {
+    const server = app.listen(port,() => {
         logger.info(`Listening to port ${port}`)
     })
+    websocket(server);
  }).catch((error) => {
     logger.error('Unable to connect to the database: ', error);
  });

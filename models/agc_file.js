@@ -189,7 +189,15 @@ module.exports = function(sequelize){
             type: DataTypes.STRING
         },
         FileCreatedDate: {
-            type: DataTypes.DATE
+            type: DataTypes.DATE,
+            defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
+        },
+        FileModifiedy: {
+            type: DataTypes.STRING(100)
+        },
+        FileModifiedDate: {
+            type: DataTypes.DATE,
+            defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
         }
     },
     {

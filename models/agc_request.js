@@ -8,6 +8,11 @@ module.exports = function(sequelize){
             primaryKey: true,
             allowNull: false
         },
+        RequestNo:{
+            type: DataTypes.STRING,
+            allowNull: false,
+            unique: 'UNIQUE'
+        },
         RequestTitle:{
             type: DataTypes.STRING,
             allowNull: false
@@ -87,12 +92,6 @@ module.exports = function(sequelize){
         Remarks:{
             type: DataTypes.STRING
         },
-        RequestCreatedBy:{
-            type: DataTypes.STRING
-        },
-        RequestCreatedDate:{
-            type: DataTypes.DATE
-        },
         RequestTypeDesc:{
             type: DataTypes.STRING
         },
@@ -138,10 +137,19 @@ module.exports = function(sequelize){
         OfficerNameDesc:{
             type: DataTypes.STRING
         },
-        RequestNo:{
-            type: DataTypes.STRING,
-            allowNull: false,
-            unique: 'UNIQUE'
+        RequestCreatedBy:{
+            type: DataTypes.STRING
+        },
+        RequestCreatedDate:{
+            type: DataTypes.DATE,
+            defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
+        },
+        RequestModifiedBy: {
+            type: DataTypes.STRING(100)
+        },
+        RequestModifiedDate: {
+            type: DataTypes.DATE,
+            defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
         }
     },
     {

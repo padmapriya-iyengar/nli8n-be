@@ -18,21 +18,6 @@ master.sync({alter:true}).then(() => {
   }).catch((err)=>setImmediate(()=>{logger.error('Failed to read AGC Master data file!!'); throw err}));
 }).catch((err)=>setImmediate(()=>{logger.error('Failed to create AGC Master data table!!'); throw err}));
 
-//creating notification table and uploading data(if any)
-const dbNotification = require('../models/agc_notification');
-const notification = dbNotification(connection)
-notification.sync({alter:true}).then(() => {
-  logger.info('AGC Notification table created successfully!!')
-  fileProcessing.readFile(config.data_file_path +'notification.json').then((data)=>{
-    logger.info('AGC Notification data file read successfully!!')
-    if(data){
-      notification.bulkCreate(JSON.parse(data),{validate: true}).then(() => {
-        logger.info('AGC Notification data created successfully!!')
-      }).catch((err) => setImmediate(() => {logger.error('Failed to create AGC Notification data!!'); throw err}))
-    }
-  }).catch((err)=>setImmediate(()=>{logger.error('Failed to read AGC Master data file!!'); throw err}));
-}).catch((err)=>setImmediate(()=>{logger.error('Failed to create AGC Notification table!!'); throw err}));
-
 //creating user table and uploading data(if any)
 const dbUser = require('../models/agc_user');
 const user = dbUser(connection)
@@ -163,6 +148,35 @@ request.hasMany(fileReqMap,{
 fileReqMap.sync({alter: true}).then(() => {
   logger.info('AGC File Request Map table created successfully!!')
 }).catch((err) => setImmediate(() => {logger.error('Failed to create AGC File Request Map table!!'); throw err}))
+
+//creating notification table and uploading data(if any)
+const dbNotification = require('../models/agc_notification');
+const notification = dbNotification(connection)
+notification.belongsTo(file, {
+  foreignKey: {
+    allowNull: false,
+    name: 'FileReferenceNo_fk'
+  },
+  targetKey: 'ReferenceNo'
+})
+file.hasMany(notification,{
+  foreignKey: {
+    allowNull: false,
+    name: 'FileReferenceNo_fk'
+  },
+  sourceKey: 'ReferenceNo'
+})
+notification.sync({alter:true}).then(() => {
+  logger.info('AGC Notification table created successfully!!')
+  fileProcessing.readFile(config.data_file_path +'notification.json').then((data)=>{
+    logger.info('AGC Notification data file read successfully!!')
+    if(data){
+      notification.bulkCreate(JSON.parse(data),{validate: true}).then(() => {
+        logger.info('AGC Notification data created successfully!!')
+      }).catch((err) => setImmediate(() => {logger.error('Failed to create AGC Notification data!!'); throw err}))
+    }
+  }).catch((err)=>setImmediate(()=>{logger.error('Failed to read AGC Master data file!!'); throw err}));
+}).catch((err)=>setImmediate(()=>{logger.error('Failed to create AGC Notification table!!'); throw err}));
 
 module.exports = {
   master,

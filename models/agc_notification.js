@@ -8,19 +8,17 @@ module.exports = function(sequelize) {
           autoIncrement: true,
           allowNull: false
         },
-        file_reference_no: {
-          type: DataTypes.STRING(100),
-          allowNull: false
-        },
         status: {
           type: DataTypes.STRING(2),
-          allowNull: false
+          allowNull: false,
+          defaultValue: 'A'
         },
         user_group: {
             type: DataTypes.STRING(100)
         },
         message_read_status: {
-            type: DataTypes.STRING(10)
+            type: DataTypes.STRING(10),
+            defaultValue: 'NotRead'
         },
         actor: {
           type: DataTypes.STRING(10)
@@ -37,15 +35,15 @@ module.exports = function(sequelize) {
         responder: {
           type: DataTypes.STRING(100)
         },
-        request_no: {
-          type: DataTypes.STRING(100)
-        },
         source_item_id: {
           type: DataTypes.STRING(100),
           allowNull: false
         },
         request_state: {
           type: DataTypes.STRING(100)
+        },
+        RequestNo:{
+          type: DataTypes.STRING
         },
         created_on: {
             type: DataTypes.DATE,

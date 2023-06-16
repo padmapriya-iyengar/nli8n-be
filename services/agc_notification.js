@@ -25,8 +25,13 @@ const getUserNotificationByID = async(reqBody) => {
   return await db.notification.findAll({where: {id: reqBody.id}})
 }
 
-  module.exports = {
-    getUserNotifications,
-    getUserNotificationByID,
-    updateUserNotifications
-  }
+const getAllNotifications = async() => {
+  return await db.notification.findAll();
+}
+
+module.exports = {
+  getUserNotifications,
+  getUserNotificationByID,
+  updateUserNotifications,
+  getAllNotifications
+}
