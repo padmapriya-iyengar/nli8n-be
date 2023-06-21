@@ -13,7 +13,15 @@ const configuration = {
         folder: './/logs//',
         file: 'agc-log-%DATE%.log'
     },
-    wsDelay: 5000
+    wsDelay: 5000,
+    db:{
+        schema:'app_db',
+        username:'appuser',
+        password:'appuser@123',
+        host:'localhost',
+        dialect:'mysql',
+        timezome:'+04:00'
+    }
 }
 
 module.exports = configuration

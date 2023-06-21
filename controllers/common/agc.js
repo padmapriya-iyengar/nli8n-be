@@ -1,5 +1,6 @@
 const express = require('express')
 const agc = express.Router({mergeParams: true})
+const logger = require('../../root/logger')
 
 const fileRouter = require('./file')
 const requestRouter = require('./request')
@@ -16,8 +17,8 @@ const userPrfServ = require('../../services/agc_user_profile')
 const seqServ = require('../../services/agc_sequence')
 const fileServ = require('../../services/agc_file')
 const reqServ = require('../../services/agc_request')
-
-const rx = require('rxjs')
+const loginServ = require('../../services/agc_login')
+const message = require('../../root/message')
 
 agc.use('/file',fileRouter)
 agc.use('/request',requestRouter)
@@ -108,10 +109,30 @@ agc.get('/dashboard-requests',(req,res) => {
     }).catch((err) => setImmediate(()=>{throw err;}))
 })
 
-//finish the implementation and error handling
-agc.post('/login',(req,res) => {
-    let newData = req.body;
-    res.status(200).json('Login successful!!')
+agc.post('/login',async(req,res) => {
+    const userData = await userServ.getUserInfo({username:req.body.data.username})
+    if(userData.length != 0){
+        loginServ.comparePassword(req.body.data.password,userData[0].password,function(err,isMatch){
+            if(err || !isMatch)
+                res.status(200).json({status: 'FAIL', message: message.responses.INVALID_PASSWORD_MESSAGE, details: message.responses.INVALID_PASSWORD_DETAILS})
+            else if(isMatch)
+                res.status(200).json({status: 'SUCCESS', message:'Success', details: message.responses.USER_LOGIN_SUCCESS})
+        })
+    }
+    else
+        res.status(200).json({status: 'NO_USER', message: message.responses.INVALID_USERNAME_MESSAGE, details: message.responses.INVALID_USERNAME_DETAILS})
+})
+
+agc.get('/hash',(req,res) => {
+    loginServ.hashPassword(req.query).then((rows) => {
+        res.status(200).json(rows)
+    }).catch((err) => setImmediate(()=>{throw err;}))
+})
+
+agc.post('/create-user',(req,res) => {
+    userServ.createUser(req.body.data).then((rows)=>{
+        res.status(200).json({status: 'SUCCESS', message: rows.toJSON().display_name+message.responses.USER_CREATION_SUCCESS})
+    }).catch((err) => setImmediate(()=>{throw err;}))
 })
 
 module.exports = agc

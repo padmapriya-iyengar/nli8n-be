@@ -31,10 +31,12 @@ module.exports = function(sequelize) {
             type: DataTypes.STRING(100)
         },
         email_notifications:{
-            type: DataTypes.INTEGER
+            type: DataTypes.INTEGER,
+            defaultValue: 1
         },
         ooo:{
-            type: DataTypes.INTEGER
+            type: DataTypes.INTEGER,
+            defaultValue: 0
         },
         email:{
             type: DataTypes.STRING(100),
@@ -43,7 +45,8 @@ module.exports = function(sequelize) {
             }
         },
         inbox_preference:{
-            type: DataTypes.JSON
+            type: DataTypes.JSON,
+            defaultValue: [{"type": "string", "field": "TASK_ACTION", "label": "Action", "display": true, "spanWidth": "1", "isSelected": true, "spanWidthPx": "100"}, {"type": "string", "field": "TASK_TITLE", "label": "Title", "display": true, "spanWidth": "2", "isSelected": true, "spanWidthPx": "200"}, {"type": "string", "field": "FILE_TITLE", "label": "File Title", "display": true, "spanWidth": "1", "isSelected": true, "spanWidthPx": "200"}, {"type": "string", "field": "FILE_REF_NO", "label": "Ref No.", "display": true, "spanWidth": "1", "isSelected": true, "spanWidthPx": "200"}, {"type": "string", "field": "REQUEST_ID", "label": "Req ID", "display": true, "spanWidth": "1", "isSelected": true, "spanWidthPx": "100"}, {"type": "datetime", "field": "DELIVERY_DATE", "label": "Received Date", "display": true, "spanWidth": "2", "isSelected": true, "spanWidthPx": "200"}, {"type": "string", "field": "CIRCULATION_ID", "label": "Circulation ID", "display": true, "spanWidth": "2", "isSelected": true, "spanWidthPx": "200"}, {"type": "date", "field": "REQUEST_DUE_DATE", "label": "Due Date", "display": true, "spanWidth": "2", "isSelected": true, "spanWidthPx": "200"}, {"type": "date", "field": "EXPECTED_RESPONSE_DATE", "label": "Expected Response Date", "display": true, "spanWidth": "2", "isSelected": true, "spanWidthPx": "200"}, {"type": "string", "field": "TASK_STATUS", "label": "Status", "display": true, "spanWidth": "1", "isSelected": true, "spanWidthPx": "100"}, {"type": "string", "field": "TASK_FROM", "label": "From", "display": true, "spanWidth": "1", "isSelected": true, "spanWidthPx": "100"}]
         },
         created_on: {
             type: DataTypes.DATE,

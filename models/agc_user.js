@@ -28,7 +28,8 @@ module.exports = function(sequelize) {
         },
         status: {
             type: DataTypes.INTEGER,
-            allowNull: false
+            allowNull: false,
+            defaultValue: 1
         },
         created_on: {
             type: DataTypes.DATE,

@@ -10,14 +10,17 @@ module.exports = function(sequelize) {
         },
         is_child:{
             type: DataTypes.INTEGER,
-            allowNull: false
+            allowNull: false,
+            defaultValue: 0
         },
         is_division:{
             type: DataTypes.INTEGER,
-            allowNull: false
+            allowNull: false,
+            defaultValue: 1
         },
         status:{
-            type: DataTypes.INTEGER
+            type: DataTypes.INTEGER,
+            defaultValue: 1
         },
         title:{
             type: DataTypes.STRING(100),
