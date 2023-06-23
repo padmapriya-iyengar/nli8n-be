@@ -34,12 +34,15 @@ const getAllFiles = async() => {
     return await db.file.findAll()
 }
 
-const getFilesForDashboard = async() => {
+const getFilesForDashboard = async(reqParams) => {
     return await connection.query("SELECT agcf.File_Id AS TASK_ID,'N' AS OPEN_DEFAULT_LAYOUT_ID,agcf.FileTitle AS TASK_TITLE,"+
         "agcf.FileTitle AS FILE_TITLE,agcf.ReferenceNo AS FILE_REF_NO,agcf.FileCreatedDate AS DELIVERY_DATE,agcf.FileStatusDesc AS TASK_STATUS,"+
         "agcf.FileCreatedBy AS TASK_FROM,agcf.FileCreatedBy AS ASSIGNEE,agcf.File_Id AS MAIN_FILE_ITEM_ID, agcf.FileType AS FILE_TYPE,"+
-        "'N' AS SLA_BREACH,agcf.File_Id AS ITEM_ID,'user' AS TARGET_TYPE,'file' AS PROCESS_NAME FROM agc_files agcf;",
-        {type: connection.QueryTypes.SELECT})
+        "'N' AS SLA_BREACH,agcf.File_Id AS ITEM_ID,'user' AS TARGET_TYPE,'file' AS PROCESS_NAME FROM agc_files agcf WHERE agcf.FileCreatedBy = :username;",
+        {
+            replacements: {username: reqParams.username},
+            type: connection.QueryTypes.SELECT
+        })
 }
 
 module.exports = {

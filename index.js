@@ -55,3 +55,5 @@ app.use((err,req,res) => {
         throw err.stack
     }
 })
+
+module.exports = app;

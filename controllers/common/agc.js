@@ -98,13 +98,13 @@ agc.get('/sequence',(req,res) => {
 })
 
 agc.get('/dashboard-files',(req,res) => {
-    fileServ.getFilesForDashboard().then((rows)=>{
+    fileServ.getFilesForDashboard(req.query).then((rows)=>{
         res.status(200).json(rows)
     }).catch((err) => setImmediate(()=>{throw err;}))
 })
 
 agc.get('/dashboard-requests',(req,res) => {
-    reqServ.getRequestsForDashboard().then((rows)=>{
+    reqServ.getRequestsForDashboard(req.query).then((rows)=>{
         res.status(200).json(rows)
     }).catch((err) => setImmediate(()=>{throw err;}))
 })

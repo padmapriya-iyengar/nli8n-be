@@ -14,7 +14,8 @@ const sequelize = new Sequelize(
       backoffBase: 1000, // Initial backoff duration in ms. Default: 100,
       backoffExponent: 1.5, // Exponent to increase backoff each try. Default: 1.1
     },
-    time_zone:config.db.timezone
+    time_zone:config.db.timezone,
+    logging: false
   }
 )
 
