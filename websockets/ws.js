@@ -1,11 +1,10 @@
 const websocket = require('ws')
 const logger = require('../root/logger')
-const config = require('../root/config')
 const notfServ = require('../services/agc_notification')
 
 module.exports = async function(expressServer){
     let notificationCount = {};
-    let delay = config.wsDelay
+    let delay = global.agc_config.wsDelay
 
     const wsServer = new websocket.Server({
         noServer: true,

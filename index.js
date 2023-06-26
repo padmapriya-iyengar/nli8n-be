@@ -1,12 +1,15 @@
 const express = require('express')
 const app = express()
+
+global.agc_config = require('./root/config')
+const port = process.env.PORT || global.agc_config.express_port
+
 const errHandle = require('./root/error')
-const sequelize = require('./root/db_connect')
 const logger = require('./root/logger')
 const root = require('./controllers/common/agc');
-const config = require('./root/config')
-const port = process.env.PORT || config.express_port
 const websocket = require('./websockets/ws');
+
+const sequelize = require('./root/db_connect')
 
 const morgan = require('morgan')
 morgan.token('m-type', function(req,res) {return req.method})
@@ -19,10 +22,10 @@ const bodyParser = require('body-parser')
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(function (req, res, next) {
-    res.setHeader('Access-Control-Allow-Origin',config.origins);
-    res.setHeader('Access-Control-Allow-Methods',config.methods);
-    res.setHeader('Access-Control-Allow-Headers',config.headers);
-    res.setHeader('Access-Control-Allow-Credentials',config.credentials);
+    res.setHeader('Access-Control-Allow-Origin',global.agc_config.header_options.origins);
+    res.setHeader('Access-Control-Allow-Methods',global.agc_config.header_options.methods);
+    res.setHeader('Access-Control-Allow-Headers',global.agc_config.header_options.headers);
+    res.setHeader('Access-Control-Allow-Credentials',global.agc_config.header_options.credentials);
     next();
 });
 
@@ -34,14 +37,14 @@ app.get('/',(req,res) => {
 })
 
 sequelize.authenticate().then(() => {
-    logger.info('Connection has been established successfully.')
-    const server = app.listen(port,() => {
-        logger.info(`Listening to port ${port}`)
-    })
-    websocket(server);
- }).catch((error) => {
-    logger.error('Unable to connect to the database: ', error);
- });
+     logger.info('Connection has been established successfully.')
+     const server = app.listen(port,() => {
+         logger.info(`Listening to port ${port}`)
+     })
+     websocket(server);
+  }).catch((error) => {
+     logger.error('Unable to connect to the database: ', error);
+  });
 
  process.on('exit',function(){
     logger.info('DB Connection Ended!!')

@@ -1,6 +1,5 @@
 const connection = require('../root/db_connect');
 const fileProcessing = require('./file_processing')
-const config = require('../root/config')
 const logger = require('../root/logger')
 
 //creating master table and uploading data(if any)
@@ -8,7 +7,7 @@ const dbMaster = require('../models/agc_master');
 const master = dbMaster(connection)
 master.sync({alter:true}).then(() => {
   logger.info('AGC Master table created successfully!!')
-  fileProcessing.readFile(config.data_file_path +'master.json').then((data)=>{
+  fileProcessing.readFile(global.agc_config.data_file_path +'master.json').then((data)=>{
     logger.info('AGC Master data file read successfully!!')
     if(data){
       master.bulkCreate(JSON.parse(data),{validate: true}).then(() => {
@@ -23,7 +22,7 @@ const dbUser = require('../models/agc_user');
 const user = dbUser(connection)
 user.sync({alter:true}).then(() => {
   logger.info('AGC User table created successfully!!')
-  fileProcessing.readFile(config.data_file_path +'user.json').then((data)=>{
+  fileProcessing.readFile(global.agc_config.data_file_path +'user.json').then((data)=>{
     logger.info('AGC User data file read successfully!!')
     if(data){
       user.bulkCreate(JSON.parse(data),{validate: true}).then(() => {
@@ -54,7 +53,7 @@ user.hasOne(userProfile, {
 });
 userProfile.sync({alter:true}).then(() => {
   logger.info('AGC User Profile table created successfully!!')
-  fileProcessing.readFile(config.data_file_path +'user_profile.json').then((data)=>{
+  fileProcessing.readFile(global.agc_config.data_file_path +'user_profile.json').then((data)=>{
     logger.info('AGC User Profile data file read successfully!!')
     if(data){
       userProfile.bulkCreate(JSON.parse(data),{validate: true}).then(() => {
@@ -83,7 +82,7 @@ user.hasMany(userDivision,{
 })
 userDivision.sync({alter:true}).then(() => {
   logger.info('AGC User Division table created successfully!!')
-  fileProcessing.readFile(config.data_file_path +'user_division.json').then((data)=>{
+  fileProcessing.readFile(global.agc_config.data_file_path +'user_division.json').then((data)=>{
     logger.info('AGC User Division data file read successfully!!')
     if(data){
       userDivision.bulkCreate(JSON.parse(data),{validate: true}).then(() => {
@@ -168,7 +167,7 @@ file.hasMany(notification,{
 })
 notification.sync({alter:true}).then(() => {
   logger.info('AGC Notification table created successfully!!')
-  fileProcessing.readFile(config.data_file_path +'notification.json').then((data)=>{
+  fileProcessing.readFile(global.agc_config.data_file_path +'notification.json').then((data)=>{
     logger.info('AGC Notification data file read successfully!!')
     if(data){
       notification.bulkCreate(JSON.parse(data),{validate: true}).then(() => {

@@ -1,6 +1,5 @@
 const winston = require('winston')
 const drFile = require('winston-daily-rotate-file')
-const config = require('./config')
 
 const logFormat = winston.format.combine(
     winston.format.colorize(),
@@ -11,7 +10,7 @@ const logFormat = winston.format.combine(
 );
 
 const transport = new drFile({
-    filename: config.log_config.folder + config.log_config.file,
+    filename: global.agc_config.log_config.folder + global.agc_config.log_config.file,
     datePattern: 'YYYY-MM-DD',
     zippedArchive: true,
     maxSize: '10m',
