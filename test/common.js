@@ -75,18 +75,6 @@ const getMasterDataByCodes = async(codes) => {
         })
 }
 
-const getAllUsers = async() => {
-    request(app)
-        .get('/agc/users')
-        .end(function(err, res){
-            if(err){
-                throw err;
-            }
-            chai.expect(res.status).eq(200);
-            chai.expect(res.body).to.be.an('array');
-        })
-}
-
 const getUserNotifications = async(username) => {
     request(app)
         .get('/agc/notifications')
@@ -104,6 +92,18 @@ const getUserDivisions = async(username) => {
     request(app)
         .get('/agc/user-divisions')
         .query({username:username})
+        .end(function(err, res){
+            if(err){
+                throw err;
+            }
+            chai.expect(res.status).eq(200);
+            chai.expect(res.body).to.be.an('array');
+        })
+}
+
+const getAllUsers = async() => {
+    request(app)
+        .get('/agc/users')
         .end(function(err, res){
             if(err){
                 throw err;
@@ -165,6 +165,125 @@ const getDashboardRequests = async(username) => {
         })
 }
 
+const getFileByReference = async(referenceNo) => {
+    request(app)
+        .get('/agc/file')
+        .query({identifier:referenceNo, source:'reference'})
+        .end(function(err, res){
+            if(err){
+                throw err;
+            }
+            chai.expect(res.status).eq(200);
+            chai.expect(res.body).to.be.an('array');
+            chai.expect(res.body).to.have.lengthOf(1);
+        })
+}
+
+const getFilesByType = async(type) => {
+    request(app)
+        .get('/agc/file')
+        .query({identifier:type, source:'type'})
+        .end(function(err, res){
+            if(err){
+                throw err;
+            }
+            chai.expect(res.status).eq(200);
+            chai.expect(res.body).to.be.an('array');
+        })
+}
+
+const readFileByReference = async(fileReferenceNo) => {
+    request(app)
+        .get('/agc/file/details')
+        .query({fileReferenceNo:fileReferenceNo})
+        .end(function(err, res){
+            if(err){
+                throw err;
+            }
+            chai.expect(res.status).eq(200);
+            chai.expect(res.body).to.be.an('array');
+            chai.expect(res.body).to.have.lengthOf(1);
+        })
+}
+
+const getFilesForRequest = async(requestNo) => {
+    request(app)
+        .get('/agc/file/files-for-request')
+        .query({requestNo:requestNo})
+        .end(function(err, res){
+            if(err){
+                throw err;
+            }
+            chai.expect(res.status).eq(200);
+            chai.expect(res.body).to.be.an('array');
+        })
+}
+
+const getAllFiles = async() => {
+    request(app)
+        .get('/agc/file/files')
+        .end(function(err, res){
+            if(err){
+                throw err;
+            }
+            chai.expect(res.status).eq(200);
+            chai.expect(res.body).to.be.an('array');
+        })
+}
+
+const getRequestByNumber = async(requestNo) => {
+    request(app)
+        .get('/agc/request')
+        .query({requestNo:requestNo})
+        .end(function(err, res){
+            if(err){
+                throw err;
+            }
+            chai.expect(res.status).eq(200);
+            chai.expect(res.body).to.be.an('array');
+            chai.expect(res.body).to.have.lengthOf(1);
+        })
+}
+
+const readRequestByNumber = async(requestNo) => {
+    request(app)
+        .get('/agc/request/details')
+        .query({requestNo:requestNo})
+        .end(function(err, res){
+            if(err){
+                throw err;
+            }
+            chai.expect(res.status).eq(200);
+            chai.expect(res.body).to.be.an('array');
+            chai.expect(res.body).to.have.lengthOf(1);
+        })
+}
+
+const getRequestsForFileReference = async(fileReferenceNo) => {
+    request(app)
+        .get('/agc/request/requests-for-file')
+        .query({fileReferenceNo:fileReferenceNo})
+        .end(function(err, res){
+            if(err){
+                throw err;
+            }
+            chai.expect(res.status).eq(200);
+            chai.expect(res.body).to.be.an('array');
+        })
+}
+
+const getAllRequests = async() => {
+    request(app)
+        .get('/agc/request/requests')
+        .end(function(err, res){
+            if(err){
+                throw err;
+            }
+            chai.expect(res.status).eq(200);
+            chai.expect(res.body).to.be.an('array');
+        })
+}
+
 module.exports = {
     getMasterDataByType,
     getMasterDataByTypeAndParent,
@@ -177,5 +296,14 @@ module.exports = {
     getUserDetails,
     getUserProfile,
     getDashboardFiles,
-    getDashboardRequests
+    getDashboardRequests,
+    getFileByReference,
+    getFilesByType,
+    readFileByReference,
+    getFilesForRequest,
+    getAllFiles,
+    getRequestByNumber,
+    readRequestByNumber,
+    getRequestsForFileReference,
+    getAllRequests
 }
