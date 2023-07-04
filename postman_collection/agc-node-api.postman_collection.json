@@ -1,0 +1,731 @@
+{
+	"info": {
+		"_postman_id": "a052c07f-b548-44d4-a621-ba9f3266ddc6",
+		"name": "agc-node-api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9839389",
+		"_collection_link": "https://node-explorations.postman.co/workspace/Node-Explorations~1572349a-fb29-4af6-9789-48290b5c61c5/collection/9839389-a052c07f-b548-44d4-a621-ba9f3266ddc6?action=share&creator=9839389&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "GetUserNotifications",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3010/agc/notifications?username=priya",
+					"host": [
+						"localhost"
+					],
+					"port": "3010",
+					"path": [
+						"agc",
+						"notifications"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "priya"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetUserInfo",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3010/agc/user-details?username=priya",
+					"host": [
+						"localhost"
+					],
+					"port": "3010",
+					"path": [
+						"agc",
+						"user-details"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "priya"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateUserNotifications",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"action\":\"NOTREAD\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3010/agc/notifications?id=1",
+					"host": [
+						"localhost"
+					],
+					"port": "3010",
+					"path": [
+						"agc",
+						"notifications"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateUserProfile",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"contact\":\"1111111112\",\"ooo_message\":\"Hi, thanks for your email! I'm on a vacation and will be back by 01-June-2023.\",\"ooo\":1,\"ooo_date_from\":\"2023-05-21\",\"ooo_date_until\":\"2023-05-31\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3010/agc/user-profile?username=priya",
+					"host": [
+						"localhost"
+					],
+					"port": "3010",
+					"path": [
+						"agc",
+						"user-profile"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "priya"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GenerateSequence",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "localhost:3010/agc/sequence?type=Advisory File",
+					"host": [
+						"localhost"
+					],
+					"port": "3010",
+					"path": [
+						"agc",
+						"sequence"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "Advisory File"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetSequence",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3010/agc/sequence?type=Advisory File",
+					"host": [
+						"localhost"
+					],
+					"port": "3010",
+					"path": [
+						"agc",
+						"sequence"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "Advisory File"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetUserProfile",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3010/agc/user-profile?username=priya",
+					"host": [
+						"localhost"
+					],
+					"port": "3010",
+					"path": [
+						"agc",
+						"user-profile"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "priya"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetMasterData",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3010/agc/master-data?source=type&identifier=CASE_ACTIVITY_TYPE",
+					"host": [
+						"localhost"
+					],
+					"port": "3010",
+					"path": [
+						"agc",
+						"master-data"
+					],
+					"query": [
+						{
+							"key": "source",
+							"value": "type"
+						},
+						{
+							"key": "identifier",
+							"value": "CASE_ACTIVITY_TYPE"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetUserDivisions",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3010/agc/user-divisions?username=pp",
+					"host": [
+						"localhost"
+					],
+					"port": "3010",
+					"path": [
+						"agc",
+						"user-divisions"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "pp"
+						},
+						{
+							"key": "identifier",
+							"value": "CASE_ACTIVITY_TYPE",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllUsers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3010/agc/users",
+					"host": [
+						"localhost"
+					],
+					"port": "3010",
+					"path": [
+						"agc",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateFile",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"data\":{\"FileType\":\"ADVISORY\",\"I_SerialNo\":\"4\",\"SecurityClassification\":\"SECURITY_CLASSIFICATION_1\",\"LocalForeign\":\"ADDR_L\",\"LocalOrForeign\":\"ADDR_L\",\"I_Division\":\"REGISTRY (IAD)\",\"I_Header1\":\"FILE_HEADER1_1_2\",\"I_Header2\":\"FILE_HEADER2_2\",\"I_Year\":\"2019\",\"ReferenceNo\":\"AG/REGISTRY (IAD)/FILE_HEADER1_1_2/FILE_HEADER2_2/2019/4\",\"FileTitle\":\"Testing node advisory file\",\"Sensitivity\":\"Yes\",\"AgencyType\":\"EXTERNAL_AGENCY_TYPE_1\",\"AgencyName\":\"EXTERNAL_AGENCY_NAME_1\",\"ExtAgencyRefNo\":\"1\",\"FileOwner\":\"priya\",\"Remarks\":\"Testing node advisory file 1\"}}"
+				},
+				"url": {
+					"raw": "http://localhost:3010/agc/file/create-file",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3010",
+					"path": [
+						"agc",
+						"file",
+						"create-file"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ReadFile",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3010/agc/file/read-file?fileReferenceNo=AG/REGISTRY (IAD)/FILE_HEADER1_1_2/FILE_HEADER2_2/2019/8",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3010",
+					"path": [
+						"agc",
+						"file",
+						"read-file"
+					],
+					"query": [
+						{
+							"key": "fileReferenceNo",
+							"value": "AG/REGISTRY (IAD)/FILE_HEADER1_1_2/FILE_HEADER2_2/2019/8"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateRequest",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"data\":{\"RequestNo\":\"ADV-5\",\"RequestStatus\":\"RSTAT_O\",\"SecurityClassification\":\"SECURITY_CLASSIFICATION_4\",\"RequestType\":\"RTYPE_ADV\",\"Urgency\":\"RURGENT_NU\",\"LocalForeign\":\"ADDR_L\",\"RequestTitle\":\"Example Advisory Local Request\",\"RequestingAgencyType\":\"EXTERNAL_AGENCY_TYPE_4\",\"RequestingAgencyName\":\"EXTERNAL_AGENCY_NAME_3\",\"OtherAgency\":\"Example Advisory Local Request\",\"RequestingAgencyRefNo\":\"Example Advisory Local Request\",\"Sensitivity\":true,\"RequestReceivedMode\":\"REQUEST_MODE_2\",\"Complexity\":\"REQUEST_COMPLEXITY_3\",\"ReceivedDate\":\"2023-10-11T01:07:55\",\"RequestDueDate\":\"2023-10-11T01:07:55\",\"ExpResponseDate\":\"2023-06-21T12:00:00\",\"UserDivision\":\"CIRCULATION OFFICER\",\"Remarks\":\"Example Advisory Local Request\",\"OriginalDueDate\":\"2023-10-11T01:07:55\",\"RequestCreatedBy\":\"priya\",\"RequestCreatedDate\":\"2023-06-14T01:08:08\",\"RequestTypeDesc\":\"Advisory\",\"RequestStatusDesc\":\"Open\",\"LocalForeignDesc\":\"Local\",\"RequestingAgencyTypeDesc\":\"EXTERNAL_AGENCY_TYPE_4\",\"RequestingAgencyNameDesc\":\"EXTERNAL_AGENCY_NAME_3\",\"SecurityClassificationDesc\":\"SECURITY_CLASSIFICATION_4\",\"RequestReceivedModeDesc\":\"REQUEST_MODE_2\",\"ComplexityDesc\":\"REQUEST_COMPLEXITY_3\",\"UrgencyDesc\":\"Not Urgent\"}}",
+					"options": {
+						"raw": {
+							"language": "text"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3010/agc/request/create-request?fileReferenceNo=AG/CIRCULATION%20OFFICER/FILE_HEADER1_3_2/FILE_HEADER2_2/2023/11",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3010",
+					"path": [
+						"agc",
+						"request",
+						"create-request"
+					],
+					"query": [
+						{
+							"key": "fileReferenceNo",
+							"value": "AG/CIRCULATION%20OFFICER/FILE_HEADER1_3_2/FILE_HEADER2_2/2023/11"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetFile",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3010/agc/file?identifier=AG/CIRCULATION%20OFFICER/FILE_HEADER1_3_2/FILE_HEADER2_2/2023/11&source=reference",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3010",
+					"path": [
+						"agc",
+						"file"
+					],
+					"query": [
+						{
+							"key": "identifier",
+							"value": "AG/CIRCULATION%20OFFICER/FILE_HEADER1_3_2/FILE_HEADER2_2/2023/11"
+						},
+						{
+							"key": "source",
+							"value": "reference"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetRequest",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3010/agc/request?requestNo=ADV-5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3010",
+					"path": [
+						"agc",
+						"request"
+					],
+					"query": [
+						{
+							"key": "requestNo",
+							"value": "ADV-5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetFileDetails",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3010/agc/file/details?fileReferenceNo=AG/REGISTRY (IAD)/FILE_HEADER1_1_2/FILE_HEADER2_2/2019/8",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3010",
+					"path": [
+						"agc",
+						"file",
+						"details"
+					],
+					"query": [
+						{
+							"key": "fileReferenceNo",
+							"value": "AG/REGISTRY (IAD)/FILE_HEADER1_1_2/FILE_HEADER2_2/2019/8"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetRequestDetails",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3010/agc/request/details?requestNo=ADV-7",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3010",
+					"path": [
+						"agc",
+						"request",
+						"details"
+					],
+					"query": [
+						{
+							"key": "requestNo",
+							"value": "ADV-7"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllFiles",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3010/agc/file/files",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3010",
+					"path": [
+						"agc",
+						"file",
+						"files"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetFilesForRequest",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3010/agc/file/files-for-request?requestNo=ADV-7",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3010",
+					"path": [
+						"agc",
+						"file",
+						"files-for-request"
+					],
+					"query": [
+						{
+							"key": "requestNo",
+							"value": "ADV-7"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ReadRequest",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3010/agc/request/read-request?requestNo=ADV-7",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3010",
+					"path": [
+						"agc",
+						"request",
+						"read-request"
+					],
+					"query": [
+						{
+							"key": "requestNo",
+							"value": "ADV-7"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetRequestsForFile",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3010/agc/request/requests-for-file?fileReferenceNo=AG/REGISTRY (IAD)/FILE_HEADER1_1_2/FILE_HEADER2_2/2019/8",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3010",
+					"path": [
+						"agc",
+						"request",
+						"requests-for-file"
+					],
+					"query": [
+						{
+							"key": "fileReferenceNo",
+							"value": "AG/REGISTRY (IAD)/FILE_HEADER1_1_2/FILE_HEADER2_2/2019/8"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllRequests",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3010/agc/request/requests",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3010",
+					"path": [
+						"agc",
+						"request",
+						"requests"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetFilesForDashboard",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3010/agc/dashboard-files",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3010",
+					"path": [
+						"agc",
+						"dashboard-files"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetRequestsForDashboard",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3010/agc/dashboard-requests",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3010",
+					"path": [
+						"agc",
+						"dashboard-requests"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GenerateHash",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3010/agc/hash?password=1&saltRounds=10",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3010",
+					"path": [
+						"agc",
+						"hash"
+					],
+					"query": [
+						{
+							"key": "password",
+							"value": "1"
+						},
+						{
+							"key": "saltRounds",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"data\":{\"username\":\"priya\",\"password\":\"1\"}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3010/agc/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3010",
+					"path": [
+						"agc",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateUser",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"data\":\n    {\n        \"first_name\":\"test\",\"last_name\":\"test\",\"display_name\":\"test\",\"username\":\"test\",\"password\":\"1\",\"saltrounds\":10\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3010/agc/create-user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3010",
+					"path": [
+						"agc",
+						"create-user"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

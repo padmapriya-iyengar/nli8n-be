@@ -25,7 +25,9 @@
     "ws": "^8.13.0"
   },
   "devDependencies": {
+    "babel-register": "^6.26.0",
     "gulp": "^4.0.2",
+    "gulp-mocha": "^8.0.0",
     "gulp-nodemon": "^2.5.0"
   }
 }
