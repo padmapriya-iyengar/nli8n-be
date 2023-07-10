@@ -1,34 +1,15 @@
 const {DataTypes} = require('sequelize')
 
-module.exports = function(sequelize) {
-    const user = sequelize.define('agc_user', {
-        id: {
+module.exports = function(sequelize){
+    let userRole = sequelize.define('agc_user_role', {
+        map_id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true,
             allowNull: false
         },
-        first_name: {
-              type: DataTypes.STRING(100)
-        },
-        last_name: {
-              type: DataTypes.STRING(100)
-        },
-        display_name: {
-            type: DataTypes.STRING(200)
-        },
-        username: {
-            type: DataTypes.STRING(100),
-            allowNull: false,
-            unique: 'UNIQUE'
-        },
-        password: {
-            type: DataTypes.STRING(500),
-            allowNull: false
-        },
-        status: {
+        status:{
             type: DataTypes.INTEGER,
-            allowNull: false,
             defaultValue: 1
         },
         created_on: {
@@ -51,5 +32,5 @@ module.exports = function(sequelize) {
     {
         timestamps: false
     })
-    return user
+    return userRole
 }

@@ -7,7 +7,7 @@ const getAllUsers = async() => {
 }
 
 const getUserInfo = async(reqBody) => {
-  return await db.user.findAll({where: {username: reqBody.username}, include:[{model: db.userProfile, required: true}, {model: db.userDivision, required: false}]})
+  return await db.user.findAll({where: {username: reqBody.username}, include:[{model: db.userProfile, required: true}, {model: db.userDivision, where: { status: 1 }, required: false}, {model: db.userRole, where: { status: 1 }, required: false}]})
 }
 
 const createUser = async(reqBody) => {
@@ -47,8 +47,33 @@ const createUser = async(reqBody) => {
   return userCreation
 }
 
+const getActiveUsers = async() => {
+  return await db.user.findAll({where: {status: 1}})
+}
+
+const updateUser = async(reqBody) => {
+  const userData = {
+    first_name: reqBody.first_name,
+    last_name: reqBody.last_name,
+    display_name: reqBody.display_name
+  }
+  return await db.user.update(userData,{where: {username: reqBody.username}})
+}
+
+const deleteUser = async(reqBody) => {
+  return await db.user.update({status: 0},{where: {username: reqBody.username}})
+}
+
+const activateUser = async(reqBody) => {
+  return await db.user.update({status: 1},{where: {username: reqBody.username}})
+}
+
 module.exports = {
     getAllUsers,
     getUserInfo,
-    createUser
+    createUser,
+    getActiveUsers,
+    updateUser,
+    deleteUser,
+    activateUser
 }

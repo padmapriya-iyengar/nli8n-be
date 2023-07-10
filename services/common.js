@@ -177,6 +177,56 @@ notification.sync({alter:true}).then(() => {
   }).catch((err)=>setImmediate(()=>{logger.error('Failed to read AGC Master data file!!'); throw err}));
 }).catch((err)=>setImmediate(()=>{logger.error('Failed to create AGC Notification table!!'); throw err}));
 
+//creating role table and uploading data(if any)
+const dbRole = require('../models/agc_role');
+const role = dbRole(connection)
+role.sync({alter:true}).then(() => {
+  logger.info('AGC Role table created successfully!!')
+  fileProcessing.readFile(global.agc_config.data_file_path+'role.json').then((data)=>{
+    logger.info('AGC Role data file read successfully!!')
+    if(data){
+      role.bulkCreate(JSON.parse(data),{validate: true}).then(()=>{
+        logger.info('AGC Role data created successfully!!')
+      }).catch((err)=>setImmediate(()=>{logger.error('Failes to create AGC Role data file!!'); throw err}))
+    }
+  }).catch((err)=>setImmediate(()=>{logger.error('Failed to read AGC Role data file!!'); throw err}))
+}).catch((err)=>setImmediate(()=>{logger.error('Failed to create AGC Role table!!'); throw err}))
+
+//creating user role table
+const dbUserRole = require('../models/agc_user_role')
+const userRole = dbUserRole(connection)
+userRole.belongsTo(user, {
+  foreignKey: {
+    allowNull: false,
+    name: 'username_fk'
+  },
+  targetKey: 'username'
+})
+user.hasMany(userRole,{
+  foreignKey: {
+    allowNull: false,
+    name: 'username_fk'
+  },
+  sourceKey: 'username'
+})
+userRole.belongsTo(role, {
+  foreignKey: {
+    allowNull: false,
+    name: 'role_id_fk'
+  },
+  targetKey: 'role_id'
+})
+role.hasMany(userRole,{
+  foreignKey: {
+    allowNull: false,
+    name: 'role_id_fk'
+  },
+  sourceKey: 'role_id'
+})
+userRole.sync({alter:true}).then(()=>{
+  logger.info('AGC User Role table created successfully!!')
+}).catch((err)=>setImmediate(()=>{logger.error('Failed to create AGC User Reole table!!'); throw err}))
+
 module.exports = {
   master,
   notification,
@@ -186,5 +236,7 @@ module.exports = {
   sequence,
   file,
   request,
-  fileReqMap
+  fileReqMap,
+  role,
+  userRole
 }

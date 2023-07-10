@@ -726,6 +726,509 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "GetAllRoles",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3010/agc/roles",
+					"host": [
+						"localhost"
+					],
+					"port": "3010",
+					"path": [
+						"agc",
+						"roles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetRoleByID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3010/agc/role?role_id=DEVELOPER",
+					"host": [
+						"localhost"
+					],
+					"port": "3010",
+					"path": [
+						"agc",
+						"role"
+					],
+					"query": [
+						{
+							"key": "role_id",
+							"value": "DEVELOPER"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateRole",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"data\":{\"role_id\":\"ADMIN\",\"role_name\":\"Administrator\"}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3010/agc/create-role",
+					"host": [
+						"localhost"
+					],
+					"port": "3010",
+					"path": [
+						"agc",
+						"create-role"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateRole",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"data\":{\"role_id\":\"ADMIN\",\"role_name\":\"Administrator\"}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3010/agc/role?action=UPDATE",
+					"host": [
+						"localhost"
+					],
+					"port": "3010",
+					"path": [
+						"agc",
+						"role"
+					],
+					"query": [
+						{
+							"key": "action",
+							"value": "UPDATE"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteRole",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"data\":{\"role_id\":\"ADMIN\",\"role_name\":\"Administrator\"}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3010/agc/role?action=DELETE",
+					"host": [
+						"localhost"
+					],
+					"port": "3010",
+					"path": [
+						"agc",
+						"role"
+					],
+					"query": [
+						{
+							"key": "action",
+							"value": "DELETE"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ActivateRole",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"data\":{\"role_id\":\"ADMIN\",\"role_name\":\"Administrator\"}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3010/agc/role?action=ACTIVATE",
+					"host": [
+						"localhost"
+					],
+					"port": "3010",
+					"path": [
+						"agc",
+						"role"
+					],
+					"query": [
+						{
+							"key": "action",
+							"value": "ACTIVATE"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetActiveUsers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3010/agc/active-users",
+					"host": [
+						"localhost"
+					],
+					"port": "3010",
+					"path": [
+						"agc",
+						"active-users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetActiveRoles",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3010/agc/active-roles",
+					"host": [
+						"localhost"
+					],
+					"port": "3010",
+					"path": [
+						"agc",
+						"active-roles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateUser",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"data\":{\"username\":\"pp\",\"first_name\":\"PP\",\"last_name\":\"Joshi\",\"display_name\":\"PP Joshi\"}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3010/agc/user?action=UPDATE",
+					"host": [
+						"localhost"
+					],
+					"port": "3010",
+					"path": [
+						"agc",
+						"user"
+					],
+					"query": [
+						{
+							"key": "action",
+							"value": "UPDATE"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteUser",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"data\":{\"username\":\"pp\"}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3010/agc/user?action=DELETE",
+					"host": [
+						"localhost"
+					],
+					"port": "3010",
+					"path": [
+						"agc",
+						"user"
+					],
+					"query": [
+						{
+							"key": "action",
+							"value": "DELETE"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ActivateUser",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"data\":{\"username\":\"pp\"}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3010/agc/user?action=ACTIVATE",
+					"host": [
+						"localhost"
+					],
+					"port": "3010",
+					"path": [
+						"agc",
+						"user"
+					],
+					"query": [
+						{
+							"key": "action",
+							"value": "ACTIVATE"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteUserDivision",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"data\":{\"username\":\"kittu\",\"group_name\":\"CIRCULATION OFFICER\"}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3010/agc/user-division?action=DELETE",
+					"host": [
+						"localhost"
+					],
+					"port": "3010",
+					"path": [
+						"agc",
+						"user-division"
+					],
+					"query": [
+						{
+							"key": "action",
+							"value": "DELETE"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ActivateUserDivision",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"data\":{\"username\":\"kittu\",\"group_name\":\"CIRCULATION OFFICER\"}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3010/agc/user-division?action=ACTIVATE",
+					"host": [
+						"localhost"
+					],
+					"port": "3010",
+					"path": [
+						"agc",
+						"user-division"
+					],
+					"query": [
+						{
+							"key": "action",
+							"value": "ACTIVATE"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateUserRole",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"data\":{\"role_id\":\"ADMIN\",\"username\":\"priya\"}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3010/agc/create-user-role",
+					"host": [
+						"localhost"
+					],
+					"port": "3010",
+					"path": [
+						"agc",
+						"create-user-role"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetUserRoles",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:3010/agc/user-role?username=priya",
+					"host": [
+						"localhost"
+					],
+					"port": "3010",
+					"path": [
+						"agc",
+						"user-role"
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "priya"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteUserRole",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"data\":{\"role_id\":\"ADMIN\",\"username\":\"priya\"}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3010/agc/user-role?action=DELETE",
+					"host": [
+						"localhost"
+					],
+					"port": "3010",
+					"path": [
+						"agc",
+						"user-role"
+					],
+					"query": [
+						{
+							"key": "action",
+							"value": "DELETE"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ActivateUserRole",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"data\":{\"role_id\":\"ADMIN\",\"username\":\"priya\"}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:3010/agc/user-role?action=ACTIVATE",
+					"host": [
+						"localhost"
+					],
+					"port": "3010",
+					"path": [
+						"agc",
+						"user-role"
+					],
+					"query": [
+						{
+							"key": "action",
+							"value": "ACTIVATE"
+						}
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
