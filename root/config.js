@@ -23,7 +23,9 @@ const configuration = {
         host:'localhost',
         dialect:'mysql',
         timezome:'+04:00'
-    }
+    },
+    app_path: '/dist/app',
+    root_app_file: '/index.html' 
 }
 
 module.exports = configuration

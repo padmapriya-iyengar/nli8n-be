@@ -21,6 +21,7 @@ app.use(morgan('Type\: :m-type -- Request\: :m-request -- URL\: :m-url -- Status
 const bodyParser = require('body-parser')
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
+
 app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Origin',global.agc_config.header_options.origins);
     res.setHeader('Access-Control-Allow-Methods',global.agc_config.header_options.methods);
@@ -31,6 +32,10 @@ app.use(function (req, res, next) {
 
 app.use('/agc',root)
 
+app.use(express.static(process.cwd()+global.agc_config.app_path));
+app.get('/', (req,res) => {
+    res.sendFile(process.cwd()+global.agc_config.app_path+global.agc_config.root_app_file)  
+});  
 app.get('/',(req,res) => {
     logger.info('AGC Node Explorations!!')
     res.status(200)
