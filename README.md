@@ -103,4 +103,7 @@ To create a new branch - git branch feature-1
 To switch to a branch -  git checkout feature-1
 To check all the branches in local - git branch
     Current branch is highlighted in green
-    
+To stage all files - git add .
+To stage specific file - git add file-name
+To commit files - git commit -m "Learning git bash"
+To push branch to remote - git push origin feature-1
