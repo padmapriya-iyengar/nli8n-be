@@ -90,3 +90,20 @@ For open source projects, say how it is licensed.
 
 ## Project status
 If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+
+## Learning Git Bash
+To check if Git is installed correctly - git --version
+Create a folder where you would want to have the build. Eg: dev-content
+Through command line move to 'dev-content' folder
+Initialize git in this folder - git init
+Connect remote repo to your local git - git remote add origin https://github.com/padmapriya-iyengar/nli8n-be.git
+    Here the remote name is origin
+Pull a remote branch - git pull origin develop
+To create a new branch - git branch feature-1
+To switch to a branch -  git checkout feature-1
+To check all the branches in local - git branch
+    Current branch is highlighted in green
+To stage all files - git add .
+To stage specific file - git add file-name
+To commit files - git commit -m "Learning git bash"
+To push branch to remote - git push origin feature-1
